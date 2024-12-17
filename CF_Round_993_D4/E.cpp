@@ -5,24 +5,16 @@ int main() {
     int t;
     cin >> t;
     while (t--) {
-        int k, l1, r1, l2, r2;
+        long long k, l1, r1, l2, r2;
         cin >> k >> l1 >> r1 >> l2 >> r2;
         int x, y;
-        long long count = 0;
-
-        for (int i = l1; i <= r1; i++) {
-            long long temp = i;
-            if (temp < l2 || temp > r2) continue;
-
-            while (temp >= l2 && temp <= r2) {
-                if (temp >= l2 && temp <= r2) count++;
-                if (temp > LLONG_MAX / k) break;
-                temp *= k;
-                // i *= k;
-                // count++;
-            }
-        }
-        cout << count << endl;
+        long long ans = 0;
+        long long p = 1;
+        while (p <= 1e9) {
+            ans += max(0LL, min(r1, (r2 / p)) - max(l1, (l2 + p - 1)/ p) + 1);
+            p *= k;
+        }   
+        cout << ans << endl;
     }
     return 0;
 }
